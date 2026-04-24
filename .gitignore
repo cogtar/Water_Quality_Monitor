@@ -1,0 +1,19 @@
+# .NET Backend
+WaterQualityMonitor.API/bin/
+WaterQualityMonitor.API/obj/
+WaterQualityMonitor.API/*.user
+WaterQualityMonitor.API/appsettings.Development.json
+
+# Frontend
+water-quality-frontend/node_modules/
+water-quality-frontend/dist/
+water-quality-frontend/.vite/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vs/
+.vscode/settings.json
+*.suo
