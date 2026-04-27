@@ -96,8 +96,8 @@ export function DashboardPage({ dark, onOpenIncident, onOpenThreshold }) {
       </section>
 
       {/* Chart + Drift */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        <div className="xl:col-span-2">
+      <div className="flex flex-col gap-6">
+        <div >
           {activeLineId && <QualityChart key={activeLineId} lineId={activeLineId} dark={dark} />}
         </div>
         <div>
