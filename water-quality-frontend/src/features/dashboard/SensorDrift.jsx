@@ -3,6 +3,7 @@ import { getSensorDrift } from '../../services/api'
 import clsx from 'clsx'
 
 function DriftBadge({ value, dark }) {
+  if (value == null || isNaN(value)) return <span className="text-xs text-slate-500">—</span>
   const abs = Math.abs(value)
   const isHigh = abs > 0.5
   const isPositive = value >= 0

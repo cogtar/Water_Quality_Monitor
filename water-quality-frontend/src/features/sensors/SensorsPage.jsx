@@ -8,9 +8,18 @@ export function SensorsPage({ dark }) {
   const { data: lines } = useQuery('lines', getLines)
   const { data: sensors, isLoading } = useQuery('sensors', () => getSensors())
   const [form, setForm] = useState({ lineId: '', type: '', lastCalibration: '' })
+  const [error, setError] = useState('')
 
   const createMut = useMutation(createSensor, {
-    onSuccess: () => { qc.invalidateQueries('sensors'); setForm({ lineId: '', type: '', lastCalibration: '' }) }
+    onSuccess: () => {
+      qc.invalidateQueries('sensors')
+      setForm({ lineId: '', type: '', lastCalibration: '' })
+      setError('')
+    },
+    onError: (err) => {
+      const d = err?.response?.data
+      setError(typeof d === 'string' ? d : d?.title ?? d?.detail ?? JSON.stringify(d) ?? 'Failed to register sensor. Is the backend running?')
+    }
   })
   const deleteMut = useMutation(deleteSensor, { onSuccess: () => qc.invalidateQueries('sensors') })
 
@@ -52,6 +61,11 @@ export function SensorsPage({ dark }) {
             Register
           </button>
         </div>
+        {error && (
+          <div className="mt-3 p-3 rounded-xl text-xs border-l-4 border-red-500 bg-red-500/10 text-red-400">
+            <span className="font-semibold">Error: </span>{String(error)}
+          </div>
+        )}
       </div>
 
       {/* Sensor cards */}

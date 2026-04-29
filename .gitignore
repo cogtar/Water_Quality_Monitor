@@ -17,3 +17,11 @@ Thumbs.db
 .vs/
 .vscode/settings.json
 *.suo
+#ppts
+*.pptx
+generate_ppt.js
+generate_ppt_v2.js
+#claude
+.claude/
+slide_previews/
+

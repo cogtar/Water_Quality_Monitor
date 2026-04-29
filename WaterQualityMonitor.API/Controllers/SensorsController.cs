@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WaterQualityMonitor.API.Data;
+using WaterQualityMonitor.API.DTOs;
 using WaterQualityMonitor.API.Models;
 
 namespace WaterQualityMonitor.API.Controllers;
@@ -15,12 +16,12 @@ public class SensorsController : ControllerBase
 
     [HttpGet]
     public async Task<IActionResult> GetAll() =>
-        Ok(await _db.WaterSensors.Include(s => s.Line).ToListAsync());
+        Ok(await _db.WaterSensors.ToListAsync());
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var sensor = await _db.WaterSensors.Include(s => s.Line).FirstOrDefaultAsync(s => s.Id == id);
+        var sensor = await _db.WaterSensors.FirstOrDefaultAsync(s => s.Id == id);
         return sensor is null ? NotFound() : Ok(sensor);
     }
 
@@ -29,11 +30,17 @@ public class SensorsController : ControllerBase
         Ok(await _db.WaterSensors.Where(s => s.LineId == lineId).ToListAsync());
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] WaterSensor dto)
+    public async Task<IActionResult> Create([FromBody] SensorCreateDto dto)
     {
-        _db.WaterSensors.Add(dto);
+        var sensor = new WaterSensor
+        {
+            LineId = dto.LineId,
+            Type = dto.Type,
+            LastCalibration = dto.LastCalibration
+        };
+        _db.WaterSensors.Add(sensor);
         await _db.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetById), new { id = dto.Id }, dto);
+        return CreatedAtAction(nameof(GetById), new { id = sensor.Id }, sensor);
     }
 
     [HttpPut("{id}")]
