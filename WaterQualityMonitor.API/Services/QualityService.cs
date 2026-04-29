@@ -98,18 +98,19 @@ public class QualityService
 
             if (latest is null) continue;
 
-            var avg = await _db.QualityReadings
+            var readings24h = await _db.QualityReadings
                 .Where(r => r.LineId == line.Id && r.Timestamp >= cutoff)
-                .GroupBy(r => r.LineId)
-                .Select(g => new
-                {
-                    AvgPH = g.Average(r => r.pH),
-                    AvgTurbidity = g.Average(r => r.Turbidity),
-                    AvgConductivity = g.Average(r => r.Conductivity)
-                })
-                .FirstOrDefaultAsync();
+                .Select(r => new { r.pH, r.Turbidity, r.Conductivity })
+                .ToListAsync();
 
-            if (avg is null) continue;
+            if (readings24h.Count == 0) continue;
+
+            var avg = new
+            {
+                AvgPH           = readings24h.Average(r => r.pH),
+                AvgTurbidity    = readings24h.Average(r => r.Turbidity),
+                AvgConductivity = readings24h.Average(r => r.Conductivity)
+            };
 
             result.Add(new SensorDriftDto(
                 LineId: line.Id,
