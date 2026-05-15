@@ -51,7 +51,7 @@ function ParamChart({ param, chartData, threshold, dark }) {
   return (
     <div className={clsx(
       'rounded-xl p-4 border flex flex-col gap-3',
-      dark ? 'bg-slate-800/50 border-slate-700' : 'bg-white border-slate-200 shadow-sm'
+      dark ? 'bg-[#130f24]/80 border-indigo-900/30' : 'bg-white border-slate-200 shadow-sm'
     )}>
       {/* Mini header */}
       <div className="flex items-center justify-between">
@@ -189,7 +189,7 @@ export function QualityChart({ lineId: initialLineId, dark }) {
   return (
     <div className={clsx(
       'rounded-2xl p-5 border',
-      dark ? 'bg-white/5 backdrop-blur-md border-white/10 shadow-xl' : 'bg-white border-slate-200 shadow-md'
+      dark ? 'bg-[#1a1830]/70 backdrop-blur-md border-indigo-800/25 shadow-xl' : 'bg-white border-slate-200 shadow-md'
     )}>
 
       {/* Header */}

@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
     public DbSet<QualityReading> QualityReadings => Set<QualityReading>();
     public DbSet<Threshold> Thresholds => Set<Threshold>();
     public DbSet<Incident> Incidents => Set<Incident>();
+    public DbSet<User> Users => Set<User>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

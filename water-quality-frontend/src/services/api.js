@@ -2,6 +2,10 @@ import axios from 'axios'
 
 const api = axios.create({ baseURL: '/api' })
 
+// Auth
+export const registerUser = (data) => api.post('/users/register', data).then(r => r.data)
+export const loginUser    = (data) => api.post('/users/login', data).then(r => r.data)
+
 // Lines
 export const getLines = () => api.get('/lines').then(r => r.data)
 export const createLine = (data) => api.post('/lines', data).then(r => r.data)

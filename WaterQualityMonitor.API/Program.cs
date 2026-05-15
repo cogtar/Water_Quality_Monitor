@@ -36,6 +36,18 @@ using (var scope = app.Services.CreateScope())
     // Creates all tables from the model if they don't exist
     db.Database.EnsureCreated();
 
+    // Create Users table manually if it doesn't exist yet
+    db.Database.ExecuteSqlRaw(@"
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Users' AND xtype='U')
+        CREATE TABLE Users (
+            Id          INT IDENTITY(1,1) PRIMARY KEY,
+            Name        NVARCHAR(200) NOT NULL,
+            Email       NVARCHAR(200) NOT NULL,
+            PasswordHash NVARCHAR(500) NOT NULL,
+            CreatedAt   DATETIME2 NOT NULL DEFAULT GETUTCDATE()
+        )
+    ");
+
     // Seed Lines
     if (!db.Lines.Any())
     {

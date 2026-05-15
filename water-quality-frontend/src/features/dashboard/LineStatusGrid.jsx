@@ -34,7 +34,7 @@ function Stat({ label, value, unit, ok, dark }) {
   return (
     <div className={clsx(
       'flex flex-col gap-0.5 px-3 py-2 rounded-xl',
-      dark ? 'bg-slate-800/60' : 'bg-slate-100'
+      dark ? 'bg-[#130f24]/80' : 'bg-slate-100'
     )}>
       <span className={clsx('text-xs font-medium', dark ? 'text-slate-400' : 'text-slate-500')}>{label}</span>
       <span className={clsx(
@@ -78,7 +78,7 @@ function LineCard({ line, dark }) {
     <div className={clsx(
       'relative overflow-hidden rounded-2xl p-5 border transition-all hover:scale-[1.01]',
       dark
-        ? 'bg-white/5 backdrop-blur-md border-white/10 shadow-xl'
+        ? 'bg-[#1a1830]/70 backdrop-blur-md border-indigo-800/25 shadow-xl'
         : 'bg-white border-slate-200 shadow-md',
       !lineOk && 'border-red-500/40'
     )}>

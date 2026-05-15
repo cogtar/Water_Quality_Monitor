@@ -25,7 +25,7 @@ export function SensorDrift({ dark }) {
   return (
     <div className={clsx(
       'rounded-2xl p-5 border',
-      dark ? 'bg-white/5 backdrop-blur-md border-white/10 shadow-xl' : 'bg-white border-slate-200 shadow-md'
+      dark ? 'bg-[#1a1830]/70 backdrop-blur-md border-indigo-800/25 shadow-xl' : 'bg-white border-slate-200 shadow-md'
     )}>
       <div className="mb-4">
         <h2 className={clsx('font-bold text-base', dark ? 'text-white' : 'text-slate-900')}>Sensor Drift</h2>
@@ -45,7 +45,7 @@ export function SensorDrift({ dark }) {
           {data.map(d => (
             <div key={d.lineId} className={clsx(
               'rounded-xl p-3 border',
-              dark ? 'bg-slate-800/60 border-slate-700' : 'bg-slate-50 border-slate-200'
+              dark ? 'bg-[#130f24]/80 border-indigo-900/30' : 'bg-slate-50 border-slate-200'
             )}>
               <p className={clsx('text-sm font-semibold mb-2', dark ? 'text-white' : 'text-slate-900')}>{d.lineName}</p>
               <div className="grid grid-cols-3 gap-2 text-xs">

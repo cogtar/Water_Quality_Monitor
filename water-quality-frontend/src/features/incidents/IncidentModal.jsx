@@ -3,6 +3,12 @@ import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { createIncident, resolveIncident, getIncidents, getLines } from '../../services/api'
 import clsx from 'clsx'
 
+function parseUTC(ts) {
+  if (!ts) return null
+  const s = String(ts)
+  return new Date(s.endsWith('Z') ? s : s + 'Z')
+}
+
 const PARAMS = ['pH', 'Turbidity', 'Conductivity']
 
 function AbtBanner({ message, dark }) {
@@ -21,7 +27,7 @@ export function IncidentModal({ dark, isOpen, onClose }) {
   const [lineId, setLineId] = useState('')
   const [parameter, setParameter] = useState('pH')
   const [value, setValue] = useState('')
-  const [abtMessage, setAbtMessage] = useState('')
+  const [sabtMessage, setAbtMessage] = useState('')
 
   const { data: lines } = useQuery('lines', () => import('../../services/api').then(m => m.getLines()))
   const { data: incidents, isLoading } = useQuery('incidents-all', () => getIncidents(), { enabled: isOpen })
@@ -48,7 +54,7 @@ export function IncidentModal({ dark, isOpen, onClose }) {
   if (!isOpen) return null
 
   const inputCls = dark
-    ? 'w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm'
+    ? 'w-full px-3 py-2 bg-[#0f0e17] border border-indigo-900/40 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm'
     : 'w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm'
 
   return (
@@ -59,15 +65,15 @@ export function IncidentModal({ dark, isOpen, onClose }) {
       {/* Modal */}
       <div className={clsx(
         'relative w-full max-w-lg rounded-2xl shadow-2xl border max-h-[90vh] overflow-y-auto',
-        dark ? 'bg-slate-900 border-slate-700' : 'bg-white border-slate-200'
+        dark ? 'bg-[#13112a] border-indigo-900/40' : 'bg-white border-slate-200'
       )}>
         {/* Header */}
-        <div className={clsx('flex items-center justify-between px-6 py-4 border-b', dark ? 'border-slate-800' : 'border-slate-100')}>
+        <div className={clsx('flex items-center justify-between px-6 py-4 border-b', dark ? 'border-indigo-900/30' : 'border-slate-100')}>
           <div>
             <h2 className={clsx('font-bold text-base', dark ? 'text-white' : 'text-slate-900')}>Incident Log</h2>
             <p className={clsx('text-xs', dark ? 'text-slate-400' : 'text-slate-500')}>Manual incident creation & resolution</p>
           </div>
-          <button onClick={onClose} className={clsx('w-8 h-8 rounded-lg flex items-center justify-center', dark ? 'hover:bg-slate-800 text-slate-400' : 'hover:bg-slate-100 text-slate-500')}>✕</button>
+          <button onClick={onClose} className={clsx('w-8 h-8 rounded-lg flex items-center justify-center', dark ? 'hover:bg-indigo-900/30 text-slate-400' : 'hover:bg-slate-100 text-slate-500')}>✕</button>
         </div>
 
         {/* Create form */}
@@ -103,7 +109,7 @@ export function IncidentModal({ dark, isOpen, onClose }) {
         </div>
 
         {/* Incident list */}
-        <div className={clsx('px-6 pb-6 border-t', dark ? 'border-slate-800' : 'border-slate-100')}>
+        <div className={clsx('px-6 pb-6 border-t', dark ? 'border-indigo-900/30' : 'border-slate-100')}>
           <h3 className={clsx('text-sm font-semibold mb-3 mt-4', dark ? 'text-slate-200' : 'text-slate-700')}>
             Open Incidents
           </h3>
@@ -124,7 +130,7 @@ export function IncidentModal({ dark, isOpen, onClose }) {
                       {inc.lineName} · {inc.parameter} = {inc.value.toFixed(2)}
                     </p>
                     <p className={clsx('text-xs', dark ? 'text-slate-500' : 'text-slate-400')}>
-                      {new Date(inc.timestamp).toLocaleString()}
+                      {parseUTC(inc.timestamp)?.toLocaleString()}
                     </p>
                   </div>
                   <button

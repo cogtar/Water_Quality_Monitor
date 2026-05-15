@@ -3,6 +3,13 @@ import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { getSensors, getLines, createSensor, deleteSensor } from '../../services/api'
 import clsx from 'clsx'
 
+/* Always parse backend timestamps as UTC (backend omits the 'Z') */
+function parseUTC(ts) {
+  if (!ts) return null
+  const s = String(ts)
+  return new Date(s.endsWith('Z') ? s : s + 'Z')
+}
+
 export function SensorsPage({ dark }) {
   const qc = useQueryClient()
   const { data: lines } = useQuery('lines', getLines)
@@ -25,15 +32,15 @@ export function SensorsPage({ dark }) {
 
   const inputCls = clsx(
     'px-3 py-2 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500',
-    dark ? 'bg-slate-800 border-slate-600 text-white' : 'bg-white border-slate-300 text-slate-900'
+    dark ? 'bg-[#0f0e17] border-indigo-900/40 text-white' : 'bg-white border-slate-300 text-slate-900'
   )
 
-  const daysSince = (d) => Math.floor((Date.now() - new Date(d)) / 86400000)
+  const daysSince = (d) => Math.floor((Date.now() - parseUTC(d)) / 86400000)
 
   return (
     <div className="space-y-5 max-w-3xl">
       {/* Add sensor */}
-      <div className={clsx('rounded-2xl p-5 border', dark ? 'bg-white/5 border-white/10' : 'bg-white border-slate-200 shadow-sm')}>
+      <div className={clsx('rounded-2xl p-5 border', dark ? 'bg-[#1a1830]/70 border-indigo-900/30' : 'bg-white border-slate-200 shadow-sm')}>
         <h3 className={clsx('font-semibold mb-3', dark ? 'text-white' : 'text-slate-900')}>Register Sensor</h3>
         <div className="flex flex-wrap gap-3 items-end">
           <div>
@@ -84,7 +91,7 @@ export function SensorsPage({ dark }) {
                 'rounded-xl p-4 border',
                 overdue
                   ? dark ? 'bg-amber-500/10 border-amber-500/30' : 'bg-amber-50 border-amber-200'
-                  : dark ? 'bg-white/5 border-white/10' : 'bg-white border-slate-200 shadow-sm'
+                  : dark ? 'bg-[#1a1830]/70 border-indigo-900/30' : 'bg-white border-slate-200 shadow-sm'
               )}>
                 <div className="flex justify-between items-start mb-2">
                   <div>

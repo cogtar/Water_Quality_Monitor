@@ -27,19 +27,19 @@ export function Sidebar({ active, onNavigate, dark }) {
       <aside className={clsx(
         'fixed md:relative z-30 h-full flex flex-col transition-all duration-300',
         dark
-          ? 'bg-slate-900 border-r border-slate-800'
+          ? 'bg-[#09081a] border-r border-indigo-900/40'
           : 'bg-white border-r border-slate-200',
         collapsed ? 'w-16' : 'w-56'
       )}>
         {/* Logo */}
         <div className={clsx(
           'flex items-center gap-3 px-4 py-5 border-b',
-          dark ? 'border-slate-800' : 'border-slate-200'
+          dark ? 'border-indigo-900/30' : 'border-slate-200'
         )}>
           <span className="text-2xl flex-shrink-0">💧</span>
           {!collapsed && (
             <div>
-              <p className={clsx('font-bold text-sm leading-tight', dark ? 'text-emerald-400' : 'text-emerald-600')}>
+              <p className={clsx('font-bold text-sm leading-tight', dark ? 'text-indigo-400' : 'text-indigo-600')}>
                 WaterQM
               </p>
               <p className={clsx('text-xs', dark ? 'text-slate-500' : 'text-slate-400')}>Monitor Lite</p>
@@ -63,10 +63,10 @@ export function Sidebar({ active, onNavigate, dark }) {
                 'w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all',
                 active === item.id
                   ? dark
-                    ? 'bg-emerald-600/20 text-emerald-400 border border-emerald-600/30'
-                    : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                    ? 'bg-indigo-600/20 text-indigo-300 border border-indigo-600/30'
+                    : 'bg-indigo-50 text-indigo-700 border border-indigo-200'
                   : dark
-                    ? 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                    ? 'text-slate-400 hover:bg-indigo-900/30 hover:text-indigo-200'
                     : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
               )}
             >
@@ -78,7 +78,7 @@ export function Sidebar({ active, onNavigate, dark }) {
 
         {/* Footer */}
         {!collapsed && (
-          <div className={clsx('px-4 py-3 text-xs border-t', dark ? 'text-slate-600 border-slate-800' : 'text-slate-400 border-slate-200')}>
+          <div className={clsx('px-4 py-3 text-xs border-t', dark ? 'text-slate-600 border-indigo-900/30' : 'text-slate-400 border-slate-200')}>
             v1.0.0 · Lite
           </div>
         )}

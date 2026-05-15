@@ -37,7 +37,7 @@ export function ThresholdForm({ dark, isOpen, onClose }) {
 
   const inputCls = clsx(
     'w-full px-2.5 py-1.5 rounded-lg border text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500',
-    dark ? 'bg-slate-800 border-slate-600 text-white' : 'bg-white border-slate-300 text-slate-900'
+    dark ? 'bg-[#0f0e17] border-indigo-900/40 text-white' : 'bg-white border-slate-300 text-slate-900'
   )
 
   return (
@@ -48,15 +48,15 @@ export function ThresholdForm({ dark, isOpen, onClose }) {
       {/* Slide-over panel */}
       <div className={clsx(
         'fixed right-0 top-0 h-full z-50 w-full max-w-sm shadow-2xl border-l flex flex-col',
-        dark ? 'bg-slate-900 border-slate-700' : 'bg-white border-slate-200'
+        dark ? 'bg-[#13112a] border-indigo-900/40' : 'bg-white border-slate-200'
       )}>
         {/* Header */}
-        <div className={clsx('flex items-center justify-between px-5 py-4 border-b', dark ? 'border-slate-800' : 'border-slate-100')}>
+        <div className={clsx('flex items-center justify-between px-5 py-4 border-b', dark ? 'border-indigo-900/30' : 'border-slate-100')}>
           <div>
             <h2 className={clsx('font-bold', dark ? 'text-white' : 'text-slate-900')}>Threshold Editor</h2>
             <p className={clsx('text-xs', dark ? 'text-slate-400' : 'text-slate-500')}>Live-edit sensor limits</p>
           </div>
-          <button onClick={onClose} className={clsx('w-8 h-8 rounded-lg flex items-center justify-center text-lg', dark ? 'hover:bg-slate-800 text-slate-400' : 'hover:bg-slate-100 text-slate-500')}>✕</button>
+          <button onClick={onClose} className={clsx('w-8 h-8 rounded-lg flex items-center justify-center text-lg', dark ? 'hover:bg-indigo-900/30 text-slate-400' : 'hover:bg-slate-100 text-slate-500')}>✕</button>
         </div>
 
         {/* Line selector */}
@@ -87,7 +87,7 @@ export function ThresholdForm({ dark, isOpen, onClose }) {
             return (
               <div key={t.id} className={clsx(
                 'rounded-xl p-4 border',
-                dark ? 'bg-slate-800/60 border-slate-700' : 'bg-slate-50 border-slate-200'
+                dark ? 'bg-[#1a1830]/70 border-indigo-900/30' : 'bg-slate-50 border-slate-200'
               )}>
                 <div className="flex items-center justify-between mb-3">
                   <span className={clsx('font-semibold text-sm', dark ? 'text-white' : 'text-slate-900')}>
